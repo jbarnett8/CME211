@@ -67,7 +67,7 @@ stop = time.time()
 # We write the alignment data
 with open(sys.argv[3],'w') as f:
     for t in alignment_data:
-        f.write('{}\n'.format(t))
+        f.write('{}\n'.format(str(t).strip('()')))
 
 # Outputing diagnostic information
 print('reference length: {}\nnumber reads: {}'.format(len(reference),
