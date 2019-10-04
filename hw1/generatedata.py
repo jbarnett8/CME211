@@ -36,8 +36,16 @@ if any([os.path.isfile(os.getcwd() + '/' + s) for s in sys.argv[4:6]]):
 
 ref_length = int(sys.argv[2])
 read_length = int(sys.argv[3])
-print('reference length: {}\n read length: {}\n'.format(ref_length,
-                                                        read_length))
+
+# This a check to make sure we have a sane selection for the read length.
+# In order to have doubly aligned readas, the read length has to stay 
+# below a certain threshold
+if (ref_length - math.ceil(0.75*ref_length)) <= read_length:
+    print('The read length is too large. Make it smaller.')
+    print_help_text()
+    sys.exit()
+
+print('reference length: {}\nread length: {}'.format(ref_length, read_length))
 
 # first we'll make a reference library random values up to 75% of
 # the specified length
@@ -58,19 +66,24 @@ reads = []
 num_reads = int(sys.argv[1])
 for i in range(num_reads):
     rand_num = random.random()
+
     # This is the case for a single alignment: 75% of the time
     if (rand_num < 0.75):
+        #print('aligns 1 : {}'.format(rand_num))
         select = random.randint(0,math.floor(0.5*ref_length))
         reads.append(ref_str[select:select+read_length])
         continue
     # two alignments: 10% of the time
     elif (rand_num < 0.85):
-        select = random.randint(math.ceil(0.75*ref_length),
-                                          ref_length - read_length)
+        #print('aligns 2 : {}'.format(rand_num))
+        lower = math.ceil(0.75*ref_length)
+        upper = ref_length - read_length
+        select = random.randint(lower, upper)
         reads.append(ref_str[select:select+read_length])
         continue
     # no alignments: 15% of the time
     else:
+        #print('aligns 0 : {}'.format(rand_num))
         while True:
             rand_str = ''.join(bases[random.randint(0,3)] for i in \
                                range(read_length))
