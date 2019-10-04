@@ -1,1 +1,20 @@
 This is the repo for my first homeowkr assignment for CME 211
+
+Part 2 Writeup
+
+Outputs:
+jbarnett@newton:~/Drive/School/Stanford/Fall19/CME211/hw1$ python3 generatedata.py 1000 600 50 "ref_1.txt" "reads_1.txt"
+reference length: 600
+read length: 50
+jbarnett@newton:~/Drive/School/Stanford/Fall19/CME211/hw1$ python3 generatedata.py 10000 6000 50 "ref_2.txt" "reads_2.txt"
+reference length: 6000
+read length: 50
+jbarnett@newton:~/Drive/School/Stanford/Fall19/CME211/hw1$ python3 generatedata.py 100000 60000 50 "ref_3.txt" "reads_3.txt"
+reference length: 60000
+read length: 50
+
+When designing the handwritten test data, I simply came up with an interesting pattern (which is not relevant to the problem) up to a certain length, then made a duplicate of a snippet that could count as a double alignment to fill it out to the specified length of the reference sequence. When selecting the reads, I just followed the instructions and picked out available alignments. The only tricky part was the sequence that is double counted, but this was already accounted for in the construction of the reference sequence. If my program were to work on my test data, it does not by any means suggest that my program will pass all other datasets. There are multiple edge cases available especially as they relate to the size of the reads and the reference sequence itself.
+
+We should not expect exactly the distrubtion descibed in the program description on an a single execution basis. However, after a sufficient number of executions we should see the uniform distrubtion should hold. This is the effect of using a random number generator. We could also see effects for when the size of the reads approaches the size of the reference sequence, in which case it may not be possible to create a doublely aligned read.
+
+I spent roughly 3 hours working on the code. 
