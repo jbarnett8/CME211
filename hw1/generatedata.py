@@ -34,8 +34,8 @@ if any([not s.isdigit() for s in sys.argv[1:3]]):
 #     print_help_text()
 #     sys.exit()
 
-num_reads = int(sys.argv[1])
-ref_length = int(sys.argv[2])
+num_reads = int(sys.argv[2])
+ref_length = int(sys.argv[1])
 read_length = int(sys.argv[3])
 
 # This a check to make sure we have a sane selection for the read length.
@@ -71,13 +71,13 @@ for i in range(num_reads):
 
     # This is the case for a single alignment: 75% of the time
     if (rand_num < 0.75):
-        read_align_count[0] += 1
+        read_align_count[1] += 1
         select = random.randint(0,math.floor(0.5*ref_length))
         reads.append(ref_str[select:select+read_length])
         continue
     # two alignments: 10% of the time
     elif (rand_num < 0.85):
-        read_align_count[1] += 1
+        read_align_count[2] += 1
         lower = math.ceil(0.75*ref_length)
         upper = ref_length - read_length
         select = random.randint(lower, upper)
@@ -85,7 +85,7 @@ for i in range(num_reads):
         continue
     # no alignments: 15% of the time
     else:
-        read_align_count[2] += 1
+        read_align_count[0] += 1
         while True:
             rand_str = ''.join(bases[random.randint(0,3)] for i in \
                                range(read_length))
