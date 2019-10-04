@@ -29,11 +29,12 @@ if any([not s.isdigit() for s in sys.argv[1:3]]):
 
 # This may not be a necessary check, but we want to make sure we aren't going
 # to ovewrite some other file by accident since it will destroy anything
-if any([os.path.isfile(os.getcwd() + '/' + s) for s in sys.argv[4:6]]):
-    print('One or more of the file names already exists.')
-    print_help_text()
-    sys.exit()
+# if any([os.path.isfile(os.getcwd() + '/' + s) for s in sys.argv[4:6]]):
+#     print('One or more of the file names already exists.')
+#     print_help_text()
+#     sys.exit()
 
+num_reads = int(sys.argv[1])
 ref_length = int(sys.argv[2])
 read_length = int(sys.argv[3])
 
@@ -45,7 +46,8 @@ if (ref_length - math.ceil(0.75*ref_length)) <= read_length:
     print_help_text()
     sys.exit()
 
-print('reference length: {}\nread length: {}'.format(ref_length, read_length))
+print('reference length: {}\nnumber reads: {}\nread length: {}'.format(
+       ref_length, num_reads, read_length))
 
 # first we'll make a reference library random values up to 75% of
 # the specified length
@@ -62,20 +64,20 @@ with open(sys.argv[4],'w') as f:
     f.write(ref_str)
 
 # Next we generate the reads
+read_align_count = [0, 0, 0]
 reads = []
-num_reads = int(sys.argv[1])
 for i in range(num_reads):
     rand_num = random.random()
 
     # This is the case for a single alignment: 75% of the time
     if (rand_num < 0.75):
-        #print('aligns 1 : {}'.format(rand_num))
+        read_align_count[0] += 1
         select = random.randint(0,math.floor(0.5*ref_length))
         reads.append(ref_str[select:select+read_length])
         continue
     # two alignments: 10% of the time
     elif (rand_num < 0.85):
-        #print('aligns 2 : {}'.format(rand_num))
+        read_align_count[1] += 1
         lower = math.ceil(0.75*ref_length)
         upper = ref_length - read_length
         select = random.randint(lower, upper)
@@ -83,7 +85,7 @@ for i in range(num_reads):
         continue
     # no alignments: 15% of the time
     else:
-        #print('aligns 0 : {}'.format(rand_num))
+        read_align_count[2] += 1
         while True:
             rand_str = ''.join(bases[random.randint(0,3)] for i in \
                                range(read_length))
@@ -98,3 +100,6 @@ with open(sys.argv[5],'w') as f:
     for s in reads:
         f.write('{}\n'.format(s))
 
+
+for i, v in enumerate(read_align_count):
+    print('aligns {}: {}'.format(i, v/num_reads))

@@ -5,13 +5,26 @@ Part 2 Writeup
 Outputs:
 jbarnett@newton:~/Drive/School/Stanford/Fall19/CME211/hw1$ python3 generatedata.py 1000 600 50 "ref_1.txt" "reads_1.txt"
 reference length: 600
+number reads: 1000
 read length: 50
+aligns 0: 0.725
+aligns 1: 0.119
+aligns 2: 0.156
 jbarnett@newton:~/Drive/School/Stanford/Fall19/CME211/hw1$ python3 generatedata.py 10000 6000 50 "ref_2.txt" "reads_2.txt"
 reference length: 6000
+number reads: 10000
 read length: 50
+aligns 0: 0.7449
+aligns 1: 0.1018
+aligns 2: 0.1533
 jbarnett@newton:~/Drive/School/Stanford/Fall19/CME211/hw1$ python3 generatedata.py 100000 60000 50 "ref_3.txt" "reads_3.txt"
 reference length: 60000
+number reads: 100000
 read length: 50
+aligns 0: 0.75053
+aligns 1: 0.09908
+aligns 2: 0.15039
+
 
 When designing the handwritten test data, I simply came up with an interesting pattern (which is not relevant to the problem) up to a certain length, then made a duplicate of a snippet that could count as a double alignment to fill it out to the specified length of the reference sequence. When selecting the reads, I just followed the instructions and picked out available alignments. The only tricky part was the sequence that is double counted, but this was already accounted for in the construction of the reference sequence. If my program were to work on my test data, it does not by any means suggest that my program will pass all other datasets. There are multiple edge cases available especially as they relate to the size of the reads and the reference sequence itself.
 
