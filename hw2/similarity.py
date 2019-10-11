@@ -1,6 +1,7 @@
 import math
 import os
 import sys
+import time
 
 def print_help_text():
     """Prints program help text"""
@@ -40,7 +41,7 @@ def get_program_args():
     # Check if user defined a threshold, and make sure it's a positive int
     if (len(sys.argv) == 4 and not sys.argv[3].isdigit()):
         print('User specified threshold is not a positive integer ' +
-              'greater than zero')
+              'greater than zero\n')
         print_help_text()
         sys.exit()
     elif (len(sys.argv) == 4):
@@ -51,6 +52,10 @@ def get_program_args():
         print('The source file does not exist.')
         print_help_text()
         sys.exit()
+
+    print("Input MovieLens file: {}".format(data_file))
+    print("Output file for similarity data: {}".format(out_file))
+    print("Minimum number of common users: {}".format(threshold))
 
     return (data_file, out_file, threshold)
 
@@ -154,7 +159,13 @@ with open(data_file,'r') as f:
     for line in f:
         data.append(tuple((int(s) for s in line.split())))
 
+start = time.time()
+
+# Get parsed data
 movies, movies_avg, users = parse_data(data)
+
+print("Read {} lines with total of {} movies and {} users".format(len(data),
+      len(movies), len(users)))
 
 # Make dictionary to hold P values, and set to hold unique movie pairs
 Ps = dict()
@@ -207,12 +218,15 @@ for movie_a, users_a in movies.items():
                 Ps[movie_b] = [(P, movie_a, num_users)]
             # call function
 
+stop = time.time()
+print('Computed similarities in {:.2f} seconds'.format(stop - start))
+
 # We sort the movies, then print the values given by the movie key from Ps
 movie_list.sort()
 with open(out_file,'w') as f:
     for m_id in movie_list:
         if m_id in Ps.keys():
             P, match, num_users = max(Ps[m_id])
-            f.write("{} ({}, {}, {})\n".format(m_id, match, P, num_users))
+            f.write("{} ({}, {:.2f}, {})\n".format(m_id, match, P, num_users))
         else:
             f.write('{}\n'.format(m_id))
