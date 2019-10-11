@@ -7,7 +7,7 @@ When creating this test data, I made sure to have 10 different numbers for the `
 # Part 2 writeup
 
 Running with u.data yields:
-```
+
 <pre><font color="#8AE234"><b>jb0@rice15</b></font>:<font color="#729FCF"><b>~/cme211/hw2</b></font>$ python3 similarity.py ml-100k/u.data out.txt 6
 Input MovieLens file: ml-100k/u.data
 Output file for similarity data: out.txt
@@ -15,9 +15,9 @@ Minimum number of common users: 6
 Read 100000 lines with total of 1682 movies and 943 users
 Computed similarities in 18.58 seconds
 </pre>
-```
+
 The output file:
-```
+
 <pre><font color="#8AE234"><b>jb0@rice15</b></font>:<font color="#729FCF"><b>~/cme211/hw2</b></font>$ head -n 10 out.txt 
 1 (885, 0.90, 6)
 2 (1153, 0.91, 7)
@@ -30,4 +30,3 @@ The output file:
 9 (854, 0.90, 6)
 10 (932, 0.93, 6)
 </pre>
-```
