@@ -30,3 +30,5 @@ The output file:
 9 (854, 0.90, 6)
 10 (932, 0.93, 6)
 </pre>
+
+My program works by first parsing the data into an easy to use list of tuples, which I can feed into a for loop by unpacking. Using the unpacked values, I can make a few dictionaries that contain the data I need. The dictionary indexed with movie ids `m_id` named `movies` contains a `set()` of each of the reviewer ids `u_id` such that I can use `intersection()` to easily find the common users between movies as fast as possible. Once I have the set of `common_users`, I can index the previous dictionary of users which contains an additional dictionary index with movie ids and returns the reviewer's rating. From this data, it is easy to compute the necessary values to calculate the cosine similarity value between two movies.
