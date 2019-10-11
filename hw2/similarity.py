@@ -219,7 +219,7 @@ for movie_a, users_a in movies.items():
             # call function
 
 stop = time.time()
-print('Computed similarities in {:.2f} seconds'.format(stop - start))
+print('Computed similarities in {:.3f} seconds'.format(stop - start))
 
 # We sort the movies, then print the values given by the movie key from Ps
 movie_list.sort()
@@ -227,6 +227,7 @@ with open(out_file,'w') as f:
     for m_id in movie_list:
         if m_id in Ps.keys():
             P, match, num_users = max(Ps[m_id])
-            f.write("{} ({}, {:.2f}, {})\n".format(m_id, match, P, num_users))
+            f.write("{:5d} ({:5d}, {:.2f}, {:3d})\n".format(m_id, 
+                    match, P, num_users))
         else:
-            f.write('{}\n'.format(m_id))
+            f.write('{:5d}\n'.format(m_id))

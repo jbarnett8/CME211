@@ -2,11 +2,11 @@ This is my repo for the second homework in CME 211
 
 # Part 1 writeup
 
-When creating this test data, I made sure to have 10 different numbers for the `user_id` but only three unique numbers for the `movie_id` as was requested in the problem statement. I picked numbers ranging from 1 to 999 since this seemed mostly appropriate given the sample data set. In keeping with the format of the actual data set, each number starts on the same column to mainatin consistent formatting. I did not create a reference solution.
+When creating this test data, I made sure to have 10 different numbers for the `user_id` but only three unique numbers for the `movie_id` as was requested in the problem statement. I picked numbers ranging from 1 to 999 since this seemed mostly appropriate given the sample data set. In keeping with the format of the actual data set, each number starts on the same column to maintain consistent formatting. Further, we notice that users appear multiple times reviewing different movies, but only one review per movie per user. I created a reference solution using a simple spreadsheet since the data-set was so small, and implementing the cosine similarity is simply done with such a small set.
 
 # Part 2 writeup
 
-Running with u.data yields:
+Running with `u.data` yields:
 
 <pre><font color="#8AE234"><b>jb0@rice15</b></font>:<font color="#729FCF"><b>~/cme211/hw2</b></font>$ python3 similarity.py ml-100k/u.data out.txt 6
 Input MovieLens file: ml-100k/u.data
