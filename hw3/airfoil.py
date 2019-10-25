@@ -9,6 +9,9 @@ class Airfoil:
 	def __init__(self, inputdir):
 		self.inputdir = inputdir
 
+		if not os.path.exists(inputdir):
+			raise RuntimeError("Directory {} does not exist".format(inputdir))
+
 		x, y, name = self.get_xy_data()
 		self.x = x
 		self.y = y
