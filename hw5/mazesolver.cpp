@@ -5,7 +5,7 @@ using namespace std;
 
 void print_help();
 void get_nums_from_line(const string &line, int &a, int &b);
-const int ARRAY_SIZE = 20;
+const int ARRAY_SIZE = 128;
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
 
@@ -79,9 +79,27 @@ int main(int argc, char** argv) {
         }
 	    cout << cur_pos_r << ", " << cur_pos_c << endl;
         cur_pos_c++;
-	    // We define a heading with two values:
 
-        
+        Direction heading = DOWN;
+
+        while (true) {
+
+            switch (heading) {
+                case DOWN:
+
+                    break;
+                case UP:
+                    break;
+                case LEFT:
+                    break;
+                case RIGHT:
+                    break;
+            }
+
+            if (cur_pos_r == sol_r)
+                break;
+        }
+
 
 		solution.close();
 	} else {
