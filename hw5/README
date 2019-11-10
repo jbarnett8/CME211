@@ -1,0 +1,5 @@
+We have to write code that keeps track of the state of the maze solver and then determine which direction to go next. We follow the right hand wall algorithm which is guaranteed to solve the maze eventually.
+
+The C++ code uses some of the basics of the language, such as data streams for files and writing to console. It also requies static arrays, which help us to know how large the arrays are going to be before compile time.
+
+The python code simply reads the file and checks to make sure none of the locations exist at walls and then determines if any illegal jumps were made (such as through walls).
