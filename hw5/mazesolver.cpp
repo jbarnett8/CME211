@@ -7,7 +7,7 @@ void print_help();
 void get_nums_from_line(const string &line, int &a, int &b);
 const int ARRAY_SIZE = 128;
 enum Direction {RIGHT, DOWN, LEFT, UP};
-bool is_valid_move(int& r, int &c, int rs, int cs, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]);
+bool is_valid_move(int& r, int &c, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]);
 
 int main(int argc, char** argv) {
 
@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
             switch (heading) {
                 case DOWN:
                     for (auto &v : local_options_down) {
-                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, v, M) ) {
                             heading = v;
                             solution << cur_pos_r << " " << cur_pos_c << endl;
                             break;
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
                     break;
                 case UP:
                     for (auto &v : local_options_up) {
-                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, v, M) ) {
                             heading = v;
                             solution << cur_pos_r << " " << cur_pos_c << endl;
                             break;
@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
                     break;
                 case LEFT:
                     for (auto &v : local_options_left) {
-                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, v, M) ) {
                             heading = v;
                             solution << cur_pos_r << " " << cur_pos_c << endl;
                             break;
@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
                     break;
                 case RIGHT:
                     for (auto &v : local_options_right) {
-                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, v, M) ) {
                             heading = v;
                             solution << cur_pos_r << " " << cur_pos_c << endl;
                             break;
@@ -143,7 +143,7 @@ void get_nums_from_line(const string &line, int &a, int &b) {
     b = atoi(line.substr(loc + 1).c_str());
 }
 
-bool is_valid_move(int& r, int &c, int rs, int cs, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]) {
+bool is_valid_move(int& r, int &c, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]) {
     switch (heading) {
         case UP:
             if (M[r - 1][c] == 0) {
