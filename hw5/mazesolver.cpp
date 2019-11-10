@@ -6,8 +6,8 @@ using namespace std;
 void print_help();
 void get_nums_from_line(const string &line, int &a, int &b);
 const int ARRAY_SIZE = 128;
-enum Direction {UP, DOWN, LEFT, RIGHT};
-
+enum Direction {RIGHT, DOWN, LEFT, UP};
+bool is_valid_move(int& r, int &c, int rs, int cs, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]);
 
 int main(int argc, char** argv) {
 
@@ -60,14 +60,6 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
-    for (auto &v : M) {
-        cout << endl;
-        for (auto &vv : v) {
-            cout << vv << ", ";
-        }
-    }
-    cout << endl;
-
 	// Check if solution file is open and write in place
 	if (solution.is_open()) {
 	    int cur_pos_r = 0, cur_pos_c = 0, sol_r = rows - 1, sol_c = 0;
@@ -77,22 +69,52 @@ int main(int argc, char** argv) {
         while (M[sol_r][sol_c] == 1) {
             sol_c++;
         }
-	    cout << cur_pos_r << ", " << cur_pos_c << endl;
-        cur_pos_c++;
+	    solution << cur_pos_r << " " << cur_pos_c << endl;
+        cur_pos_r++;
+        solution << cur_pos_r << " " << cur_pos_c << endl;
 
         Direction heading = DOWN;
+        Direction local_options_up[4] = {RIGHT, UP, LEFT, DOWN}, local_options_right[4] = {DOWN, RIGHT, UP, LEFT},
+                local_options_down[4] = {LEFT, DOWN, RIGHT, UP}, local_options_left[4] = {UP, LEFT, DOWN, RIGHT};
 
         while (true) {
 
             switch (heading) {
                 case DOWN:
-
+                    for (auto &v : local_options_down) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                            heading = v;
+                            solution << cur_pos_r << " " << cur_pos_c << endl;
+                            break;
+                        }
+                    }
                     break;
                 case UP:
+                    for (auto &v : local_options_up) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                            heading = v;
+                            solution << cur_pos_r << " " << cur_pos_c << endl;
+                            break;
+                        }
+                    }
                     break;
                 case LEFT:
+                    for (auto &v : local_options_left) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                            heading = v;
+                            solution << cur_pos_r << " " << cur_pos_c << endl;
+                            break;
+                        }
+                    }
                     break;
                 case RIGHT:
+                    for (auto &v : local_options_right) {
+                        if ( is_valid_move(cur_pos_r, cur_pos_c, rows, cols, v, M) ) {
+                            heading = v;
+                            solution << cur_pos_r << " " << cur_pos_c << endl;
+                            break;
+                        }
+                    }
                     break;
             }
 
@@ -119,4 +141,38 @@ void get_nums_from_line(const string &line, int &a, int &b) {
     auto loc = line.find(' ');
     a = atoi(line.substr(0, loc).c_str());
     b = atoi(line.substr(loc + 1).c_str());
+}
+
+bool is_valid_move(int& r, int &c, int rs, int cs, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]) {
+    switch (heading) {
+        case UP:
+            if (M[r - 1][c] == 0) {
+                r--;
+                return true;
+            } else {
+                return false;
+            }
+        case RIGHT:
+            if (M[r][c + 1] == 0) {
+                c++;
+                return true;
+            } else {
+                return false;
+            }
+        case DOWN:
+            if (M[r + 1][c] == 0) {
+                r++;
+                return true;
+            } else {
+                return false;
+            }
+        case LEFT:
+            if (M[r][c - 1] == 0) {
+                c--;
+                return true;
+            } else {
+                return false;
+            }
+    }
+    return false;
 }
