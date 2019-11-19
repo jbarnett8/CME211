@@ -1,0 +1,47 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[]{algorithm2e}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{physics}
+\usepackage{subcaption}
+\title{CME 211 Project: Part 1}
+\author{Joshua Barnett}
+\begin{document}
+\maketitle
+\section*{Description}
+The conjugate gradient (CG) method for solving the linear system $A x = b$ requires a few matrix and vector operations that can be generalized into a few operations. The most important function is a General Matrix Multiply (GEMM) that takes the form $c = \alpha A x + \beta b $ where $c$, $x$, and $b$ are vectors, $\alpha$ and $\beta$ are scalars, and $A$ is a CSR matrix. We can use this function for all of the matrix multiplication operations required in the CG method. Additionally, we also implement a weighted vector sum called daxby which is the expression $d = \alpha x + \beta y$. Finally, we have simple operations where we calculate the dot product and $L_2$ norm. These form the basis for all of the basic operations required to perform the CG method.
+\section*{Algorithm}
+\begin{algorithm}
+\KwData{Matrix $A$ and vector $b$ to solve $A x = b$}
+ \KwResult{Solution for vector $x$ in $A x = b$ }
+ $u_n = \mathbf{1}$\;
+ $r_n = b - A u_n$\;
+ $l_{2,0} = \text{norm}_2(r_n)$\;
+ $p_n = r_n$\;
+ $n = 0$\;
+ \While{$ n < n_{max}$}{
+  $n$\texttt{++}\;
+  $\alpha = r_n^T r_n / \left(p_n^T A p_n\right)$\;
+  $u_{n + 1} = u_n + \alpha p_n$\;
+  $r_{n + 1} = r_n - \alpha A p_n$\;
+  $l_{2,r} = \text{norm}_2\left(r_{n + 1}\right)$\;
+  \If{$l_{2,r}/l_{2,0} < $ \texttt{tol}}{
+   break\;
+   }
+  $\beta = r_{n+1}^T r_{n+1} /(r_n^T r_n)$\;
+  $p_n = r_{n + 1} + \beta p_n$\;
+  $u_n = u_{n + 1}$\;
+  $r_n = r_{n + 1}$\;
+ }
+ \caption{Conjugate Gradient Method for solving $A x = b$}
+\end{algorithm}
+\end{document}
