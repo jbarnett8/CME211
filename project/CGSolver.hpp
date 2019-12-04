@@ -2,6 +2,7 @@
 #define CGSOLVER_HPP
 
 #include <vector>
+#include "sparse.hpp"
 
 /* Function that implements the CG algorithm for a linear system
  *
@@ -14,11 +15,10 @@
  * tolerance, or -1 if the solver did not converge.
  */
 
-int CGSolver(std::vector<double> &val,
-             std::vector<int>    &row_ptr,
-             std::vector<int>    &col_idx,
+int CGSolver(SparseMatrix        &M,
              std::vector<double> &b,
              std::vector<double> &x,
-             double              tol);
+             double              tol,
+             unsigned            n_max);
 
 #endif /* CGSOLVER_HPP */
