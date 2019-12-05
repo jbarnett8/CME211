@@ -36,14 +36,15 @@ if __name__ == '__main__':
 	# Store plot data in ims array which grabs Collection from plot output
 	ims = []
 	fig = plot.figure(figsize=(9, 3))
-	for file in sol_files:
-		X, Y, data, d_mean = postprocess.get_plot_data(input_f, file, False)
+	for f in sol_files:
+		X, Y, data, d_mean = postprocess.get_plot_data(input_f, f, False)
+		print('file: {}, average temp: {}'.format(f, d_mean))
 		res = plot.pcolor(X, Y, data, cmap='jet')
-		print('file: {}, average temp: {}'.format(file, d_mean))
 		ims.append((res,))
 
 	# Feed the plotted data from above into animation function
-	im_ani = animation.ArtistAnimation(fig, ims, interval=200, repeat_delay=1000)
+	im_ani = animation.ArtistAnimation(fig, ims, interval=50, repeat_delay=3000,
+			blit = True)
 	
 	# Add the plot labelling
 	plot.colorbar(fraction=0.03, pad=0.03, aspect=10)
@@ -51,4 +52,5 @@ if __name__ == '__main__':
 	plot.ylabel('y')
 	ax = plot.gca()
 	ax.set_aspect(data.shape[0]/data.shape[1])
+	ax.axis([X.min(), X.max(), Y.min(), Y.max()])
 	plot.show()
