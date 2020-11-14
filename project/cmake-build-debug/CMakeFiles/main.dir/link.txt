@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/CGSolver.cpp.o CMakeFiles/main.dir/matvecops.cpp.o CMakeFiles/main.dir/COO2CSR.cpp.o CMakeFiles/main.dir/sparse.cpp.o CMakeFiles/main.dir/heat.cpp.o  -o main 

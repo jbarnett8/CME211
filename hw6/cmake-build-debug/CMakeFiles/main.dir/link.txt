@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -Wall -Wconversion -Wextra -pedantic -O3 -g   CMakeFiles/main.dir/hw6.cpp.o CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/image.cpp.o  -o main /usr/lib/x86_64-linux-gnu/libjpeg.so 

@@ -47,7 +47,7 @@ int HeatEquation2D::Setup(std::string inputfile) {
 
     // Make a new b vector to set all elements to zero, copy to real b later
     std::vector<double> bb(static_cast<std::size_t>(n_c*n_r), 0);
-    double hh = 1; //h*h;
+    double hh = 1; // h*h/(9.7 * pow(10, -5));
     for (int i = 0; i < n_r; i++) {
         for (int j = 0; j < n_c; j++) {
             auto idx = i*n_c + j;

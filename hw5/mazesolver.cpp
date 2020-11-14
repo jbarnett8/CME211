@@ -5,7 +5,7 @@ using namespace std;
 
 void print_help();
 void get_nums_from_line(const string &line, int &a, int &b);
-const int ARRAY_SIZE = 128;
+const int ARRAY_SIZE = 256;
 enum Direction {RIGHT, DOWN, LEFT, UP};
 bool is_valid_move(int& r, int &c, Direction heading, int M[ARRAY_SIZE][ARRAY_SIZE]);
 
